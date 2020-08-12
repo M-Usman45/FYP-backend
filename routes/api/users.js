@@ -52,7 +52,6 @@ router.post("/signup", async (req, res) => {
       .header("x-auth-token", token)
       .header("access-control-expose-headers", "x-auth-token")
       .send(token);
-    console.log(user);
   }
 });
 
@@ -111,7 +110,7 @@ router.put("/resetPassword1", async (req, res) => {
 
 router.put("/rp", async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
-  console.log("in rp", user);
+  //console.log("in rp", user);
   if (!user)
     res.status(404).json({
       status: false,

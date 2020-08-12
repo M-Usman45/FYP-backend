@@ -30,10 +30,10 @@ const asset = mongoose.model(
       required: true,
     },
     purchaseDate: {
-      type: String,
+      type: Date,
       required: true,
     },
-    image: {
+    assetImage: {
       type: String ,
       required: true
     },
@@ -65,7 +65,7 @@ function validateAsset(asset) {
     quantity: Joi.number().min(1).required(),
     price: Joi.number().min(1).required(),
     purchaseDate: Joi.date().required(),
-    image: Joi.string().required(),
+    assetImage: Joi.string().required(),
     category: Joi.string().required()
   };
   return Joi.validate(asset, Schema);

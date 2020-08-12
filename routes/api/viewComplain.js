@@ -1,5 +1,6 @@
 const express = require("express");
 const decode = require("jwt-decode");
+const moment = require("moment")
 const { Complain, validateStatus } = require("../../models/User/Complain");
 
 const router = express.Router();
@@ -15,8 +16,8 @@ router.get("/view", async (req, res) => {
       { status: "Pending" },
     ],
   }).populate("userId", "firstname lastname _id");
-
-  res.send(complains);
+  if(complains) res.send(complains);
+  res.status(400)
 });
 
 router.get("/complainsCount", async (req, res) => {
@@ -32,6 +33,18 @@ router.get("/complainsCount", async (req, res) => {
   });
   res.send(compCount.toString());
 });
+
+router.get("/complainsReport/:month", async (req, res) => {
+  const complains = await  Complain.find().populate("userId", "firstname lastname email _id");
+  console.log("compalins" , complains)
+  const result = complains.filter(date=>{
+    console.log(date.sendDate)
+    moment(date.sendDate).format('MMMM') == req.params.month
+  })
+  if(result) res.send(result)
+  res.status(400)
+  //.log("Requests" , result)      
+})
 
 router.get("/pendingComplains", async (req, res) => {
   const pendingComp = await Complain.countDocuments({ status: "pending" });

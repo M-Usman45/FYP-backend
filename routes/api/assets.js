@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const express = require("express");
 const multer = require("multer")
+const moment = require("moment")
 const storage = multer.diskStorage({
   destination: function(req , file,cb){
     cb(null , "./public/uploads/")
@@ -22,10 +23,9 @@ const { Request } = require("../../models/User/Request");
 const { Asset, validate } = require("../../models/Admin/Asset");
 const router = express.Router();
 
-router.post("/uploads" , upload.single("image") , async (req , res)=>{
+router.post("/uploads" , upload.single("assetImage") , async (req , res)=>{
       res.send(req.file.originalname) 
   })
-
 
 router.post("/add" ,async (req, res) => {
  const { body } = req;
@@ -47,7 +47,7 @@ router.post("/add" ,async (req, res) => {
       quantity: body.quantity,
       price: body.price,
       purchaseDate: body.purchaseDate,
-      image: body.image,
+      assetImage: body.image,
       category: body.category
     });
     await asset.save();
@@ -62,7 +62,8 @@ router.post("/add" ,async (req, res) => {
 
 router.get("/view", async (req, res) => {
   const assets = await Asset.find();
-  res.send(assets);
+  if(assets) res.send(assets);
+  res.status(400)
 });
 
 router.get("/getAsset/:id", async (req, res) => {
@@ -87,8 +88,7 @@ router.post("/assignAsset", async (req, res) => {
   try {
     const asset = await Asset.findOneAndUpdate(
       { title: req.body.assetTitle },
-      { $push: { users: usersObj } },
-      { $inc: { quantity: -1 } }
+      { $push: { users: usersObj }, $inc: { quantity: -1 } }
     );
 
     res.send(asset);
@@ -111,6 +111,19 @@ router.post("/assignAsset", async (req, res) => {
     res.status(400);
   }
 });
+
+router.get("/assetsReport/:month", async (req, res) => {
+ // console.log("req params assets month" ,req.params.month)
+  const assets = await  Asset.find();
+  // console.log(assets)
+  const result = assets.filter(date=>{
+    console.log(date.purchaseDate)
+    return moment(date.purchaseDate).format('MMMM') == req.params.month
+  })
+  if(result) res.send(result)
+  res.status(400)
+  // console.log("Requests" , result)      
+})
 
 router.get("/assetCount", async (req, res) => {
   const assetCount = await Asset.find().countDocuments();

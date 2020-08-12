@@ -18,7 +18,6 @@ const checkIns = require("./routes/api/checkIns");
 const checkOuts = require("./routes/api/checkOuts");
 
 const cors = require("cors");
-
 const app = express();
 connectDB();
 app.use(cors());

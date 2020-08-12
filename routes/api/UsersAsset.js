@@ -62,6 +62,8 @@ router.get("/organizationAssets/view", async (req, res) => {
     title: 1,
     brand: 1,
     quantity: 1,
+    category: 1 ,
+    image: 1 
   });
   res.send(assets);
 });
