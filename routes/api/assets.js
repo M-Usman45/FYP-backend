@@ -113,16 +113,13 @@ router.post("/assignAsset", async (req, res) => {
 });
 
 router.get("/assetsReport/:month", async (req, res) => {
- // console.log("req params assets month" ,req.params.month)
   const assets = await  Asset.find();
-  // console.log(assets)
   const result = assets.filter(date=>{
     console.log(date.purchaseDate)
     return moment(date.purchaseDate).format('MMMM') == req.params.month
   })
   if(result) res.send(result)
   res.status(400)
-  // console.log("Requests" , result)      
 })
 
 router.get("/assetCount", async (req, res) => {
