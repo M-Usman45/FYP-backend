@@ -8,17 +8,16 @@ const router = express.Router();
 router.post("/send", async (req, res) => {
   const jwt = decode(req.header("x-auth-token"));
   const { error } = validate(req.body);
-  const date_obj = new Date();
   if (error) res.status(400).send(error.details[0].message);
   request = new Request({
     title: req.body.title,
     assetTitle: req.body.assetTitle,
-    issueDate: req.body.issueDate,
-    returnDate: req.body.returnDate,
+    issueDate:new Date(req.body.issueDate),
+    returnDate: new Date(req.body.returnDate),
     description: req.body.description,
     status: "delivered",
     userId: jwt.id,
-    sendDate: date_obj,
+    sendDate: new Date(),
     category: req.body.category
   });
   await request.save();

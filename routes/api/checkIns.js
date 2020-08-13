@@ -22,10 +22,7 @@ router.post("/checked/:id", async (req, res) => {
           }
        res.send(result)  
      } )
-  
-  
-  
-     const checkIns = await CheckIn.findByIdAndDelete({_id: req.params.id})
+       const checkIns = await CheckIn.findByIdAndDelete({_id: req.params.id})
   if (!checkIns) res.send("No compalin found");
   res.send(checkIns);
 });

@@ -46,8 +46,8 @@ router.post("/add" ,async (req, res) => {
       brand: body.brand,
       quantity: body.quantity,
       price: body.price,
-      purchaseDate: body.purchaseDate,
-      assetImage: body.image,
+      purchaseDate: new Date(body.purchaseDate),
+      assetImage: body.assetImage,
       category: body.category
     });
     await asset.save();
@@ -55,8 +55,8 @@ router.post("/add" ,async (req, res) => {
     res.send("Added Successfully")
   }
   catch(ex){
-    console.log("Adding asset Exception", ex)
-  }
+    res.status(400)
+    }
   }
 });
 

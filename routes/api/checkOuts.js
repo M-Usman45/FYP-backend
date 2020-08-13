@@ -5,10 +5,10 @@ const router = express.Router();
 
 router.get("/view", async (req, res) => {
   
-  const today = moment()
-  console.log(today)
-  const monthAgo= moment().subtract(30 , 'days')
-  console.log("Date month ago" , monthAgo)
+  //const today = moment()
+  //console.log(today)
+  //const monthAgo= moment().subtract(30 , 'days')
+ // console.log("Date month ago" , monthAgo)
   // const checkout = await Checkout.find({ issuDate: {$lte: new Date(monthAgo ) } })
 
   const checkout = await Checkout.find()

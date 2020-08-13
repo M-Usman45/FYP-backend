@@ -9,11 +9,6 @@ const asset = mongoose.model(
       maxlenght: 255,
       required: true,
     },
-    image: {
-      type: String,
-      maxlenght: 255,
-      required: true,
-    },
     brand: {
       type: String,
       maxlenght: 255,
@@ -30,7 +25,7 @@ const asset = mongoose.model(
       required: true,
     },
     purchaseDate: {
-      type: Date,
+      type: String,
       required: true,
     },
     assetImage: {
