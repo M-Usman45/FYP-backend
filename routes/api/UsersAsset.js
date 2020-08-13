@@ -26,18 +26,6 @@ router.get("/InUsedAssets/return/:id", async (req, res) => {
         } else console.log("Error");
       }
     );
-    // const update = await Asset.findOneAndUpdate(
-    //   { _id: req.params.id },
-    //   { $inc: { quantity: -1 } },
-    //   { safe: true, upsert: true },
-    //   function (res, err) {
-    //     if (!err) {
-    //       console.log("Quantity Updated successfully");
-    //     } else console.log("Error");
-    //   }
-    // );
-    // console.log("Updated Successfully");
-    // //console.log(asset);
     try {
       const user = await User.findById(userId);
       const checkIn = new CheckIn({
@@ -63,7 +51,7 @@ router.get("/organizationAssets/view", async (req, res) => {
     brand: 1,
     quantity: 1,
     category: 1 ,
-    image: 1 
+    assetImage: 1 
   });
   res.send(assets);
 });
