@@ -37,9 +37,11 @@ router.get("/complainsCount", async (req, res) => {
 router.get("/complainsReport/:month", async (req, res) => {
   const complains = await  Complain.find().populate("userId", "firstname lastname email _id");
   const result = complains.filter(date=>{
-    moment(date.sendDate).format('MMMM') == req.params.month
+   return moment(date.sendDate).format('MM') == req.params.month
   })
+  console.log("Complains Report" , result)
   if(result) res.send(result)
+  //console.log(result)
   res.status(400)
 })
 

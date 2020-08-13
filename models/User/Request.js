@@ -40,11 +40,7 @@ const request = mongoose.model("Request", mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
-    },
-    category: {
-        type: String,
-        required: true
-    },
+    }
 }))
 
 function validateRequest(request) {
@@ -54,10 +50,7 @@ function validateRequest(request) {
         assetTitle: Joi.string().max(255).required(),
         issueDate: Joi.date().required(),
         returnDate: Joi.date().required(),
-        description: Joi.string().max(1000).required(),
-        // status: Joi.string().max(255).required(),
-        category: Joi.string().max(1000).required(),
-        
+        description: Joi.string().max(1000).required(),     
     }
     return Joi.validate(request, Schema)
 }

@@ -18,7 +18,6 @@ router.post("/send", async (req, res) => {
     status: "delivered",
     userId: jwt.id,
     sendDate: new Date(),
-    category: req.body.category
   });
   await request.save();
   res.send("Saved to the database successfully");

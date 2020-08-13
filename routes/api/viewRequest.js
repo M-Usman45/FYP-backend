@@ -43,11 +43,13 @@ router.get("/requestCount", async (req, res) => {
 });
 
 router.get("/requestsReport/:month", async (req, res) => {
+  console.log("params month" , req.params.month)
   const requests = await  Request.find().populate("userId", "firstname lastname email _id");
-  console.log(requests)
   const result = requests.filter(date=>{
-    moment(date.sendDate).format('MMMM') == req.params.month
+    console.log("Moment month" ,  moment(date.sendDate).format('MM'))
+   return moment(date.sendDate).format('MM') == req.params.month
   })
+  console.log("Request Reports",result)
   if(result) res.send(result)
   res.status(400)
 })
